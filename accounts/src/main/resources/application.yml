@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: accounts    
+    
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: 
+     
+  h2:
+    console:
+      enabled: true
+      
+  jpa:
+    hibernate:
+      ddl-auto: update
+      
+    show-sql: true
+    
+# config client properties   
+
+  profiles:
+    active: "prod"
+    
+  config:
+    import: "configserver:http://localhost:9001/"
+      
+server:
+  port: 9003  
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        
+# To display service information when u click on eureka dashboard url add bellow property.
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+   name: "Accounts"
+   description: "Java Express Accounts Micro Service application"
+   version: "1.0.0"
+   location: "Bangalore"
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true # by default true
+
+    service-url:
+      defaultZone: http://localhost:9002/eureka/
+  instance:
+    ip-address: true
+        

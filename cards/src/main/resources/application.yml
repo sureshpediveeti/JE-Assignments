@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: cards
+    
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: 
+    
+  h2:
+    console:
+      enabled: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+# Spring config client properies   
+   
+  profiles:
+    active: "prod"
+
+  config:
+    import: "configserver:http://localhost:9001/"
+    
+
+server:
+  port: 9004
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+                
+# To display service information when u click on eureka dashboard url add bellow property.
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+   name: "Cards"
+   description: "Cards microservice is used to create cards for users"
+   version: "1.0.0"
+   location: "Bangalore"
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true # by default true
+
+    service-url:
+      defaultZone: http://localhost:9002/eureka/
+  instance:
+    ip-address: true
